@@ -1,6 +1,7 @@
 'use client'
 import Image from "next/image"
 import { useRouter } from "next/router"
+import Link from "next/link"
 
 export default function Home() {
   const router = useRouter()
@@ -28,9 +29,8 @@ export default function Home() {
       >
         Iniciar
       </button>
-
       <p className="mt-4 text-sm text-center">
-        <a href="/admin" className="text-blue-600 underline">Ir para painel administrativo</a>
+        <Link href="/admin" className="text-blue-600 underline">Ir para painel administrativo</Link>
       </p>
 
     </main>

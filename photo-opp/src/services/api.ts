@@ -33,3 +33,10 @@ export async function getPhotoUrl(imageId: string) {
   return res.json(); // deve retornar { imageUrl: string }
 }
 
+export async function deletePhoto(id: number) {
+  const res = await fetch(`${baseUrl}/photo/${id}`, {
+    method: 'DELETE',
+  })
+  if (!res.ok) throw new Error('Erro ao excluir foto')
+  return res.json()
+}

@@ -1,4 +1,5 @@
 'use client'
+import { getDailyStats, getPhotos } from '@/services/api'
 import { useEffect, useState } from 'react'
 
 type Stats = { dia: string, total: number }
@@ -8,14 +9,19 @@ export default function Admin() {
   const [stats, setStats] = useState<Stats[]>([])
   const [photos, setPhotos] = useState<Photo[]>([])
 
-  useEffect(() => {
-    fetch('http://localhost:3001/stats/daily')
-      .then(res => res.json())
-      .then(data => setStats(data))
+  // useEffect(() => {
+  //   fetch('http://localhost:3001/stats/daily')
+  //     .then(res => res.json())
+  //     .then(data => setStats(data))
 
-    fetch('http://localhost:3001/photos')
-      .then(res => res.json())
-      .then(data => setPhotos(data))
+  //   fetch('http://localhost:3001/photos')
+  //     .then(res => res.json())
+  //     .then(data => setPhotos(data))
+  // }, [])
+
+   useEffect(() => {
+    getDailyStats().then(setStats).catch(console.error)
+    getPhotos().then(setPhotos).catch(console.error)
   }, [])
 
   return (

@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { getPhotoUrl } from '@/services/api'
 
 export default function Preview() {
   const [image, setImage] = useState<string | null>(null)
@@ -14,14 +15,9 @@ export default function Preview() {
 
     if (!imageId) return
 
-    fetch(`http://localhost:3001/photo/${imageId}`)
-      .then(res => res.json())
-      .then(data => {
-        setImage(data.imageUrl)
-      })
-      .catch(err => {
-        console.error('Erro ao carregar imagem do backend:', err)
-      })
+    getPhotoUrl(imageId)
+      .then(data => setImage(data.imageUrl))
+      .catch(err => console.error('Erro ao carregar imagem do backend:', err))
   }, [])
 
   return (

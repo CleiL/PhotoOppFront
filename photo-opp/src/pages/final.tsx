@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import QRCode from 'react-qr-code'
 import Image from 'next/image'
+import { getPhotoUrl } from '@/services/api'
 
 export default function Final() {
   const router = useRouter()
@@ -12,11 +13,9 @@ export default function Final() {
   const imageId = localStorage.getItem('capturedImageId')
   if (!imageId) return
 
-  // Buscar URL da imagem
-  fetch(`http://localhost:3001/photo/${imageId}`)
-    .then(res => res.json())
-    .then(data => setImageUrl(data.imageUrl))
-    .catch(err => console.error('Erro ao buscar imagem final:', err))
+   getPhotoUrl(imageId)
+      .then(data => setImageUrl(data.imageUrl))
+      .catch(err => console.error('Erro ao buscar imagem final:', err))
 
   // Redirecionar para a tela inicial após 10 segundos
   const timer = setTimeout(() => {

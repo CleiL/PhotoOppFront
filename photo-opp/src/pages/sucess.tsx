@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import { getPhotoUrl } from '@/services/api'
 
 export default function Success() {
   const [imageSrc, setImageSrc] = useState<string | null>(null)
@@ -13,8 +14,7 @@ export default function Success() {
     if (!imageId) {
       router.push('/capture')
     } else {
-      fetch(`http://localhost:3001/photo/${imageId}`)
-        .then(res => res.json())
+      getPhotoUrl(imageId)
         .then(data => setImageSrc(data.imageUrl))
         .catch(err => {
           console.error('Erro ao buscar imagem:', err)

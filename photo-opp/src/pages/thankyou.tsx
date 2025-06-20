@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import QRCode from 'react-qr-code'
+import { getPhotoUrl } from '@/services/api'
 
 export default function ThankYou() {
   const router = useRouter()
@@ -13,11 +14,8 @@ export default function ThankYou() {
     const imageId = localStorage.getItem('capturedImageId')
 
     if (imageId) {
-      fetch(`http://localhost:3001/photo/${imageId}`)
-        .then(res => res.json())
-        .then(data => {
-          setImageUrl(data.imageUrl)
-        })
+      getPhotoUrl(imageId)
+        .then(data => setImageUrl(data.imageUrl))
         .catch(err => {
           console.error('Erro ao buscar imagem:', err)
         })
